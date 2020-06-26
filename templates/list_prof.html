@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+        <table class="pure-table">
+        <thead>
+        <tr>
+            <th>Professor</th>
+            <th>Experiencia Profissional</th>
+            <th>Hora</th>
+            <th>Disponibilidade</th>
+            <th>Ação</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for prof in profs %}
+            <tr>
+
+
+                <td>{{ prof.Nome }}</td>
+                <td>{{ prof.Exeperiencia_profissional }}</td>
+                <td>{{ prof.Hora_aula }}</td>
+                <td>{% if prof.Disponibilidade == 1 %}
+                        Matutino
+                    {% endif %}
+                    {% if prof.Disponibilidade == 2 %}
+                        Vespertino
+                    {% else %}
+                        Noturno
+                    {% endif %}
+                </td>
+                <td>
+                    <a class="pure-button" href="{% url  'up_prof' prof.pk %}">Atualizar</a>
+                    <a class="pure-button" href="{% url 'delete_prof' prof.pk %}">Remover</a>
+                </td>
+
+
+            </tr>
+        {% empty %}
+            <p>Nenhum Professor cadastrado</p>
+                {% endfor %}
+        </tbody>
+        </table>
+
+
+    <a class="pure-button" href="{% url 'form_prof' %}">Cadastrar Professor</a>
+{% endblock %}
